@@ -1,0 +1,122 @@
+<header class="page-header">
+  <div>
+    <span class="eyebrow">KNOWLEDGE CENTRE / FAQ</span>
+    <h1>A place for every question<span>.</span></h1>
+    <p>Create and organise the categories your customers need.</p>
+  </div>
+  <span class="count-tag">{{ state.data().categories.length }} categories</span>
+</header>
+@if (state.preview) {
+  <div class="preview-note">
+    Development preview · Categories reset on refresh · No API connected
+  </div>
+}
+@if (state.failed()) {
+  <div class="error-banner">
+    Request unsuccessful.
+    <button (click)="state.load()" [disabled]="state.busy()">Retry loading</button>
+  </div>
+}
+<div class="category-layout">
+  <form class="surface" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="surface-heading">
+      <span class="step">+</span>
+      <div>
+        <h2>Add a category</h2>
+        <p>A simple label for related answers.</p>
+      </div>
+    </div>
+    <fieldset [disabled]="state.busy() || !state.loaded()">
+      <div class="field">
+        <label for="category-name">Category name <span>*</span></label
+        ><input
+          id="category-name"
+          formControlName="name"
+          maxlength="100"
+          placeholder="e.g. Delivery & returns"
+          aria-describedby="name-error"
+          [attr.aria-invalid]="form.controls.name.touched && form.controls.name.invalid"
+        />
+        <p id="name-error" class="field-error">
+          @if (form.controls.name.touched && form.controls.name.invalid) {
+            {{
+              form.controls.name.hasError('duplicate')
+                ? 'This category name already exists.'
+                : 'Enter a category name, up to 100 characters.'
+            }}
+          }
+        </p>
+      </div>
+      <div class="field">
+        <label for="category-status">Visibility</label
+        ><select id="category-status" formControlName="status">
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+        <p class="hint">Only active categories appear when adding an FAQ.</p>
+      </div>
+    </fieldset>
+    <div class="form-actions">
+      <button class="primary" type="submit" [disabled]="state.busy() || !state.loaded()">
+        {{ state.busy() ? 'Saving…' : 'Add category' }} <span>↗</span>
+      </button>
+    </div>
+  </form>
+  <section class="surface">
+    <div class="surface-heading spread">
+      <div>
+        <h2>All categories</h2>
+        <p>Your customer knowledge, neatly grouped.</p>
+      </div>
+      <label class="search-label"
+        ><span class="visually-hidden">Search categories</span
+        ><input
+          #categorySearch
+          type="search"
+          placeholder="Find a category…"
+          (input)="search.set(categorySearch.value)"
+      /></label>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption class="visually-hidden">
+          FAQ categories and usage counts
+        </caption>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>FAQs</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (category of filtered(); track category.id) {
+            <tr>
+              <td>
+                <strong>{{ category.name }}</strong>
+              </td>
+              <td>{{ count(category.id) }}</td>
+              <td>
+                <span class="badge" [class.inactive]="category.status === 'INACTIVE'">{{
+                  category.status === 'ACTIVE' ? 'Active' : 'Inactive'
+                }}</span>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="empty">
+                {{
+                  state.busy()
+                    ? 'Loading categories…'
+                    : state.failed()
+                      ? 'Categories unavailable. Retry loading above.'
+                      : 'No categories found.'
+                }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

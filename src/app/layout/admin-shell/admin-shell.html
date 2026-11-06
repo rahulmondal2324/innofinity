@@ -1,0 +1,123 @@
+<a class="skip-link" href="#workspace">Skip to content</a>
+@if (mobileOpen()) {
+  <button class="scrim" aria-label="Close navigation" (click)="mobileOpen.set(false)"></button>
+}
+<aside
+  id="admin-sidebar"
+  class="sidebar"
+  [class.is-open]="mobileOpen()"
+  aria-label="Main navigation"
+>
+  <a routerLink="/dashboard" class="brand-link" aria-label="Innofinity dashboard">
+    <span class="full-brand"><iw-admin-brand [compact]="true" /></span>
+    <img
+      class="rail-logo"
+      src="/branding/innofinity-short-logo.jpg"
+      width="46"
+      height="46"
+      alt="Innofinity Worldwide"
+    />
+  </a>
+  <div class="workspace-label">
+    <span class="workspace-dot"></span> Administration <span class="workspace-code">UK</span>
+  </div>
+  <nav>
+    @for (section of nav; track section.label) {
+      <div class="nav-section">
+        <p>{{ section.label }}</p>
+        <ng-container *ngTemplateOutlet="menu; context: { $implicit: section.items }" />
+      </div>
+    }
+  </nav>
+  <div class="sidebar-footer">
+    <span class="avatar">A</span>
+    <div><strong>Administrator</strong><small>Innofinity Worldwide</small></div>
+    <button (click)="auth.logout()" aria-label="Sign out" title="Sign out">
+      <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</aside>
+<ng-template #menu let-items>
+  <ul>
+    @for (item of items; track item.label) {
+      <li>
+        @if (item.children) {
+          <details>
+            <summary
+              [attr.title]="item.label"
+              [attr.aria-label]="item.label"
+              (click)="compact.set(false)"
+            >
+              <i class="bi" [class]="'bi bi-' + (item.icon || 'grid')" aria-hidden="true"></i
+              ><span>{{ item.label }}</span
+              ><span class="chevron">›</span>
+            </summary>
+            <div class="subnav">
+              <ng-container *ngTemplateOutlet="menu; context: { $implicit: item.children }" />
+            </div>
+          </details>
+        } @else {
+          <a
+            [routerLink]="item.path"
+            [attr.title]="item.label"
+            [attr.aria-label]="item.label"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ariaCurrentWhenActive="page"
+            (click)="mobileOpen.set(false)"
+            ><i [class]="'bi bi-' + (item.icon || 'arrow-right')" aria-hidden="true"></i
+            ><span>{{ item.label }}</span></a
+          >
+        }
+      </li>
+    }
+  </ul>
+</ng-template>
+<div class="workspace">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button
+        type="button"
+        class="sidebar-toggle"
+        (click)="compact.set(!compact())"
+        [attr.aria-expanded]="!compact()"
+        aria-controls="admin-sidebar"
+        [attr.aria-label]="compact() ? 'Expand sidebar' : 'Collapse sidebar'"
+        [attr.title]="compact() ? 'Expand sidebar' : 'Collapse sidebar'"
+      >
+        <i class="bi bi-grid-1x2" aria-hidden="true"></i
+        ><i
+          class="bi"
+          [class.bi-chevron-right]="compact()"
+          [class.bi-chevron-left]="!compact()"
+          aria-hidden="true"
+        ></i>
+      </button>
+      <button
+        class="menu-toggle"
+        (click)="mobileOpen.set(!mobileOpen())"
+        [attr.aria-expanded]="mobileOpen()"
+        aria-label="Toggle navigation"
+      >
+        ☰</button
+      ><span>Innofinity <span class="slash">/</span> <strong>Overview & operations</strong></span>
+    </div>
+    <div class="topbar-right">
+      <span class="environment"
+        ><span></span>{{ preview ? 'Development preview' : 'Admin workspace' }}</span
+      ><a routerLink="/enquiries" class="inbox-link" aria-label="View enquiries"
+        ><i class="bi bi-envelope" aria-hidden="true"></i></a
+      ><span class="avatar">A</span>
+    </div>
+  </header>
+  @if (preview) {
+    <div class="preview-banner">
+      <i class="bi bi-info-circle" aria-hidden="true"></i> Preview workspace · Sample dashboard data
+      · API not connected
+    </div>
+  }
+  <main id="workspace" tabindex="-1"><router-outlet /></main>
+  <footer class="workspace-footer">
+    <span>© Innofinity Worldwide</span><span>Administration workspace</span>
+  </footer>
+</div>

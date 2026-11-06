@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "./styles/bootstrap-icons.css";
+
+:root {
+  color-scheme: light;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #20334a;
+  background: #f5f7fa;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input {
+  font: inherit;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #1b879d;
+  outline-offset: 4px;
+}
+::selection {
+  background: #bbe9e9;
+  color: #152d42;
+}

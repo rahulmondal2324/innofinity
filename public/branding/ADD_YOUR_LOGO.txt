@@ -1,0 +1,1 @@
+Save the original supplied Innofinity logo here as innofinitylogo.png. The brand component displays an iw fallback until the image is available.

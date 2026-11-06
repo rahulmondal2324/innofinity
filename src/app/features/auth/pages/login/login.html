@@ -1,0 +1,131 @@
+<main class="login-page">
+  <iw-admin-auth-brand-panel />
+
+  <section class="form-panel" aria-labelledby="login-title">
+    <div class="form-top">
+      <span class="portal-label"
+        ><i class="bi bi-shield-lock" aria-hidden="true"></i> ADMIN PORTAL</span
+      ><span class="access-label">Authorised access only</span>
+    </div>
+    <div class="form-wrap">
+      <div class="mobile-brand"><iw-admin-brand /></div>
+      <span class="welcome-label">WELCOME BACK</span>
+      <h2 id="login-title">Sign in to your workspace</h2>
+      <p class="form-intro">Enter your administrator details to continue.</p>
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+        novalidate
+        [attr.aria-busy]="submitting()"
+      >
+        <div class="field-group">
+          <label for="email" class="form-label">Email address</label>
+          <div class="input-wrap">
+            <i class="bi bi-envelope" aria-hidden="true"></i
+            ><input
+              id="email"
+              class="form-control"
+              type="email"
+              formControlName="email"
+              placeholder="you@company.co.uk"
+              autocomplete="username"
+              inputmode="email"
+              maxlength="254"
+              autocapitalize="none"
+              spellcheck="false"
+              [readOnly]="submitting()"
+              [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
+              [attr.aria-describedby]="form.controls.email.touched && form.controls.email.invalid ? 'email-error' : null"
+            />
+          </div>
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+          <p id="email-error" class="field-error">
+            Enter a valid email address.
+          </p>
+          }
+        </div>
+        <div class="field-group">
+          <div class="password-label">
+            <label for="password" class="form-label">Password</label
+            ><button
+              class="text-button"
+              type="button"
+              (click)="showRecoveryHelp()"
+            >
+              Forgot password?
+            </button>
+          </div>
+          <div class="input-wrap">
+            <i class="bi bi-lock" aria-hidden="true"></i
+            ><input
+              id="password"
+              class="form-control password-input"
+              [type]="passwordVisible() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              maxlength="256"
+              [readOnly]="submitting()"
+              (keydown)="detectCapsLock($event)"
+              (keyup)="detectCapsLock($event)"
+              (blur)="capsLock.set(false)"
+              [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
+              [attr.aria-describedby]="form.controls.password.touched && form.controls.password.invalid ? 'password-error' : null"
+            /><button
+              class="visibility-button"
+              type="button"
+              (click)="passwordVisible.set(!passwordVisible())"
+              [attr.aria-label]="passwordVisible() ? 'Hide password' : 'Show password'"
+              [attr.aria-pressed]="passwordVisible()"
+            >
+              <i
+                class="bi"
+                [class.bi-eye]="!passwordVisible()"
+                [class.bi-eye-slash]="passwordVisible()"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+          @if (form.controls.password.touched && form.controls.password.invalid)
+          {
+          <p id="password-error" class="field-error">
+            Enter your password (maximum 256 characters).
+          </p>
+          } @if (capsLock()) {
+          <p class="caps-hint">Caps Lock is on.</p>
+          }
+        </div>
+        <button
+          class="btn sign-in-button w-100"
+          type="submit"
+          [disabled]="submitting()"
+        >
+          @if (submitting()) {
+          <span
+            class="spinner-border spinner-border-sm"
+            aria-hidden="true"
+          ></span
+          ><span>Signing in…</span> } @else { <span>Sign in</span
+          ><i class="bi bi-arrow-right" aria-hidden="true"></i> }
+        </button>
+      </form>
+      <div class="access-note">
+        <i class="bi bi-shield-check" aria-hidden="true"></i>
+        <p>
+          This workspace is reserved for authorised team members. Keep your
+          sign-in details private.
+        </p>
+      </div>
+      <div class="help-line">
+        Having trouble signing in?
+        <button type="button" class="text-button" (click)="showRecoveryHelp()">
+          Get help <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <footer class="form-footer">
+      <span>© {{ year }} Innofinity Worldwide</span
+      ><span>Administration workspace</span>
+    </footer>
+  </section>
+</main>

@@ -1,0 +1,33 @@
+<section
+  class="toast-stack"
+  aria-label="Notifications"
+  aria-live="polite"
+  aria-relevant="additions"
+>
+  @for (item of toast.messages(); track item.id) {
+  <article
+    class="notice"
+    [class.notice-error]="item.kind === 'error'"
+    [class.notice-success]="item.kind === 'success'"
+  >
+    <i
+      class="bi"
+      [class.bi-exclamation-circle]="item.kind === 'error'"
+      [class.bi-check-circle]="item.kind === 'success'"
+      [class.bi-info-circle]="item.kind === 'info'"
+      aria-hidden="true"
+    ></i>
+    <div>
+      <strong>{{ item.title }}</strong>
+      <p>{{ item.message }}</p>
+    </div>
+    <button
+      type="button"
+      (click)="toast.dismiss(item.id)"
+      aria-label="Dismiss notification"
+    >
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+  </article>
+  }
+</section>

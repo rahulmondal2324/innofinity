@@ -1,0 +1,42 @@
+<div class="editor-toolbar" role="group" aria-label="Answer formatting">
+  <span>ANSWER EDITOR</span
+  ><button
+    type="button"
+    [disabled]="disabled() || readOnly()"
+    (mousedown)="$event.preventDefault()"
+    (click)="format(editor, 'strong')"
+    aria-label="Bold selected text"
+  >
+    <b>B</b></button
+  ><button
+    type="button"
+    [disabled]="disabled() || readOnly()"
+    (mousedown)="$event.preventDefault()"
+    (click)="format(editor, 'em')"
+    aria-label="Italic selected text"
+  >
+    <em>I</em></button
+  ><button
+    type="button"
+    [disabled]="disabled() || readOnly()"
+    (mousedown)="$event.preventDefault()"
+    (click)="format(editor, 'ul')"
+    aria-label="Make selected text a list"
+  >
+    • List
+  </button>
+</div>
+<div
+  #editor
+  id="faq-answer"
+  role="textbox"
+  aria-labelledby="answer-label"
+  aria-multiline="true"
+  aria-describedby="answer-help answer-error"
+  [attr.contenteditable]="disabled() || readOnly() ? 'false' : 'true'"
+  [attr.tabindex]="disabled() || readOnly() ? -1 : 0"
+  [innerHTML]="initial()"
+  (input)="update(editor)"
+  (blur)="touched()"
+  (paste)="paste($event, editor)"
+></div>

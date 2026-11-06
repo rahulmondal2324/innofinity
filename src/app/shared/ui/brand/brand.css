@@ -1,0 +1,30 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  background: #111329;
+  overflow: hidden;
+}
+.brand-mark img {
+  object-fit: contain;
+}
+.brand-name {
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+.brand-name > span {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  opacity: 0.66;
+}

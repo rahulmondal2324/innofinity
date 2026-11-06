@@ -1,0 +1,175 @@
+<header class="page-header">
+  <div>
+    <span class="eyebrow">KNOWLEDGE CENTRE / FAQ</span>
+    <h1>Answers, beautifully organised<span>.</span></h1>
+    <p>Help customers find the right answer, in the right order.</p>
+  </div>
+  <div class="header-actions">
+    <a class="secondary" routerLink="/faq/categories">Categories</a
+    ><a class="primary" routerLink="/faq/add">+ Add FAQ</a>
+  </div>
+</header>
+@if (state.preview) {
+  <div class="preview-note">
+    Development preview · Sample content and changes reset on refresh · No API connected
+  </div>
+}
+<div class="summary-strip">
+  <div>
+    <strong>{{ rows().length }}</strong
+    ><span>Total questions</span>
+  </div>
+  <div>
+    <strong>{{ state.data().categories.length }}</strong
+    ><span>Categories</span>
+  </div>
+  <p>
+    <i class="bi bi-arrow-left-right" aria-hidden="true"></i> Drag the handle to arrange
+    questions.<br /><span>Use ↑ / ↓ for keyboard or touch sorting.</span>
+  </p>
+</div>
+<section class="surface">
+  <div class="surface-heading spread">
+    <div>
+      <h2>FAQ library</h2>
+      <p>Manual display order · Top of the table appears first</p>
+    </div>
+    <div class="header-actions">
+      @if (dirty()) {
+        <button class="secondary" (click)="discard()" [disabled]="state.busy()">Discard</button>
+      }
+      <button class="primary" (click)="save()" [disabled]="!dirty() || state.busy()">
+        {{ state.busy() ? 'Please wait…' : 'Save order' }}
+      </button>
+    </div>
+  </div>
+  <div class="filters">
+    <label class="search-label"
+      ><span class="visually-hidden">Search FAQs</span
+      ><input
+        #searchInput
+        type="search"
+        placeholder="Search questions…"
+        [value]="search()"
+        (input)="search.set(searchInput.value)" /></label
+    ><label
+      ><span class="visually-hidden">Filter category</span
+      ><select #categoryInput [value]="category()" (change)="category.set(categoryInput.value)">
+        <option value="">All categories</option>
+        @for (cat of state.data().categories; track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select></label
+    ><label
+      ><span class="visually-hidden">Filter status</span
+      ><select #statusInput [value]="status()" (change)="status.set(statusInput.value)">
+        <option value="">All statuses</option>
+        <option value="ACTIVE">Active</option>
+        <option value="INACTIVE">Inactive</option>
+      </select></label
+    >
+    @if (filtering()) {
+      <button class="text-button" (click)="clear()">Clear filters</button>
+    }
+  </div>
+  @if (filtering()) {
+    <div class="sort-note">Clear filters to reorder the full FAQ list.</div>
+  }
+  @if (dirty()) {
+    <div class="sort-note">You have an unsaved display order. Choose Save order to apply it.</div>
+  }
+  @if (state.failed()) {
+    <div class="error-banner">
+      The request failed. Your unsaved order is retained.
+      <button (click)="load()" [disabled]="state.busy()">Reload saved list</button>
+    </div>
+  }
+  <p class="visually-hidden" aria-live="polite">{{ announcement() }}</p>
+  <div class="table-wrap">
+    <table>
+      <caption class="visually-hidden">
+        FAQ display order, question, category and status
+      </caption>
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Question & answer</th>
+          <th>Category</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (faq of filtered(); track faq.id; let index = $index) {
+          <tr
+            [class.dragging]="dragged() === faq.id"
+            [class.drop-target]="over() === faq.id"
+            (dragover)="$event.preventDefault(); over.set(faq.id)"
+            (drop)="drop($event, faq.id)"
+            (dragend)="endDrag()"
+          >
+            <td class="order-cell">
+              <span
+                class="drag-handle"
+                [attr.draggable]="!filtering() && !state.busy()"
+                (dragstart)="drag($event, faq.id)"
+                [attr.title]="filtering() ? 'Clear filters before sorting' : 'Drag to reorder'"
+                aria-hidden="true"
+                >⠿</span
+              ><span>{{ rows().indexOf(faq) + 1 }}</span>
+              <div class="move-buttons">
+                <button
+                  type="button"
+                  [disabled]="filtering() || state.busy() || index === 0"
+                  (click)="move(faq.id, -1)"
+                  [attr.aria-label]="'Move ' + faq.question + ' up'"
+                >
+                  ↑</button
+                ><button
+                  type="button"
+                  [disabled]="filtering() || state.busy() || index === rows().length - 1"
+                  (click)="move(faq.id, 1)"
+                  [attr.aria-label]="'Move ' + faq.question + ' down'"
+                >
+                  ↓
+                </button>
+              </div>
+            </td>
+            <td class="question-cell">
+              <details>
+                <summary>{{ faq.question }}</summary>
+                <div class="answer-preview" [innerHTML]="faq.answerHtml"></div>
+              </details>
+            </td>
+            <td>
+              <span class="category-tag">{{ categoryName(faq.categoryId) }}</span>
+            </td>
+            <td>
+              <span class="badge" [class.inactive]="faq.status === 'INACTIVE'">{{
+                faq.status === 'ACTIVE' ? 'Active' : 'Inactive'
+              }}</span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="empty">
+              {{
+                state.busy()
+                  ? 'Loading your FAQ library…'
+                  : state.failed()
+                    ? 'FAQs unavailable. Retry loading above.'
+                    : 'No questions found.'
+              }}
+              @if (!state.busy() && !state.failed()) {
+                <a routerLink="/faq/add">Add your first FAQ ↗</a>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <footer class="table-footer">
+    <span>{{ filtered().length }} of {{ rows().length }} questions</span
+    ><span>{{ dirty() ? 'Unsaved changes' : 'Display order up to date' }}</span>
+  </footer>
+</section>

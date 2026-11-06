@@ -1,0 +1,17 @@
+<a routerLink="/dashboard" class="back">← Back to dashboard</a>
+<section>
+  <span class="eyebrow">WORKSPACE MODULE</span>
+  <h1>{{ item?.label || 'Page unavailable' }}</h1>
+  <div class="empty">
+    <i class="bi bi-box-seam" aria-hidden="true"></i>
+    <h2>{{ item ? 'Ready for the next step' : 'This page could not be found' }}</h2>
+    <p>
+      {{
+        item
+          ? 'This section is included in your administration navigation. Its screens and data will be added when the module requirements and API are confirmed.'
+          : 'Choose a section from the sidebar to continue.'
+      }}
+    </p>
+    <a routerLink="/dashboard">Return to overview →</a>
+  </div>
+</section>

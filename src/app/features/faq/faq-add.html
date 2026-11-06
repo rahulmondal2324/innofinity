@@ -1,0 +1,125 @@
+<header class="page-header">
+  <div>
+    <span class="eyebrow">KNOWLEDGE CENTRE / FAQ</span>
+    <h1>Add a helpful answer<span>.</span></h1>
+    <p>Give your customers clarity, one question at a time.</p>
+  </div>
+  <a routerLink="/faq/list" class="secondary">← FAQ list</a>
+</header>
+@if (state.preview) {
+  <div class="preview-note">
+    <i class="bi bi-info-circle" aria-hidden="true"></i> Development preview: changes stay in memory
+    and reset when you refresh. No API request is sent.
+  </div>
+}
+@if (state.failed()) {
+  <div class="error-banner">
+    We could not complete the request.
+    <button (click)="state.load()" [disabled]="state.busy()">Reload workspace</button>
+  </div>
+}
+<div class="form-layout">
+  <form
+    class="surface"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    novalidate
+    [attr.aria-busy]="state.busy()"
+  >
+    <div class="surface-heading">
+      <span class="step">01</span>
+      <div>
+        <h2>Question & answer</h2>
+        <p>A clear question deserves a useful answer.</p>
+      </div>
+    </div>
+    <fieldset [disabled]="state.busy() || !state.loaded()">
+      <div class="field">
+        <div class="label-row">
+          <label for="category">Category <span>*</span></label
+          ><a routerLink="/faq/categories">Manage categories ↗</a>
+        </div>
+        <select
+          id="category"
+          formControlName="categoryId"
+          [attr.aria-invalid]="form.controls.categoryId.touched && form.controls.categoryId.invalid"
+          aria-describedby="category-error"
+        >
+          <option value="">Select a category</option>
+          @for (category of categories(); track category.id) {
+            <option [value]="category.id">{{ category.name }}</option>
+          }
+        </select>
+        <p id="category-error" class="field-error">
+          @if (form.controls.categoryId.touched && form.controls.categoryId.invalid) {
+            Choose a category.
+          }
+        </p>
+        @if (state.loaded() && !categories().length) {
+          <p>No active categories yet. Add an active category to continue.</p>
+        }
+      </div>
+      <div class="field">
+        <label for="question">Question <span>*</span></label
+        ><textarea
+          id="question"
+          formControlName="question"
+          rows="2"
+          maxlength="500"
+          placeholder="e.g. How do I sell my device?"
+          [attr.aria-invalid]="form.controls.question.touched && form.controls.question.invalid"
+          aria-describedby="question-error"
+        ></textarea>
+        <div class="label-row">
+          <p id="question-error" class="field-error">
+            @if (form.controls.question.touched && form.controls.question.invalid) {
+              Enter a question, up to 500 characters.
+            }
+          </p>
+          <small>{{ form.controls.question.value.length }} / 500</small>
+        </div>
+      </div>
+      <div class="field">
+        <label id="answer-label">Answer <span>*</span></label
+        ><iw-admin-answer-editor
+          [readOnly]="state.busy() || !state.loaded()"
+          formControlName="answerHtml"
+        />
+        <p id="answer-help" class="hint">
+          Select text, then choose bold, italic or list. Pasted content uses plain text.
+        </p>
+        <p id="answer-error" class="field-error">
+          @if (form.controls.answerHtml.touched && form.controls.answerHtml.invalid) {
+            Enter an answer, up to 30,000 HTML characters.
+          }
+        </p>
+      </div>
+      <div class="field">
+        <label for="status">Visibility</label
+        ><select id="status" formControlName="status">
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+        <p class="hint">Inactive answers stay hidden from the customer FAQ.</p>
+      </div>
+    </fieldset>
+    <div class="form-actions">
+      <a class="secondary" routerLink="/faq/list">Cancel</a
+      ><button class="primary" type="submit" [disabled]="state.busy() || !state.loaded()">
+        {{ state.busy() ? 'Saving…' : 'Add FAQ' }} <span>↗</span>
+      </button>
+    </div>
+  </form>
+  <aside class="guide-card">
+    <span class="eyebrow">A LITTLE GUIDANCE</span
+    ><i class="bi bi-question-circle" aria-hidden="true"></i>
+    <h2>Make the answer<br />worth finding.</h2>
+    <ul>
+      <li>Use the words your customers would use.</li>
+      <li>Keep each question focused on one topic.</li>
+      <li>Start with the answer, then add the details.</li>
+      <li>Group related questions in a category.</li>
+    </ul>
+    <div>Order your answers directly in the FAQ list. There’s no separate settings screen.</div>
+  </aside>
+</div>

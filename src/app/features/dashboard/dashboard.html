@@ -1,0 +1,266 @@
+<div class="page-heading">
+  <div>
+    <div class="eyebrow">THE INNOFINITY WORKSPACE</div>
+    <h1>Overview <span class="sample-tag">Sample data</span></h1>
+    <p>A fresh perspective on your business. Everything you need, in one place.</p>
+  </div>
+  <div class="period-picker" role="group" aria-label="Dashboard period">
+    <button
+      [class.selected]="period() === '7'"
+      [attr.aria-pressed]="period() === '7'"
+      (click)="period.set('7')"
+    >
+      Last 7 days</button
+    ><button
+      [class.selected]="period() === '30'"
+      [attr.aria-pressed]="period() === '30'"
+      (click)="period.set('30')"
+    >
+      Last 30 days
+    </button>
+  </div>
+</div>
+<iw-admin-dashboard-welcome />
+<section class="metrics" aria-label="Sample business metrics">
+  @for (metric of metrics(); track metric.label) {
+    <article class="metric-card">
+      <div class="metric-top">
+        <span>{{ metric.label }}</span
+        ><i [class]="'bi bi-' + metric.icon" aria-hidden="true"></i>
+      </div>
+      <div class="metric-value">{{ metric.value }}</div>
+      <div class="metric-bottom">
+        <span class="trend">↗ {{ metric.change }}</span
+        ><span>vs. previous period</span>
+      </div>
+      <p>{{ metric.detail }}</p>
+    </article>
+  }
+</section>
+<div class="insights-grid">
+  <section class="panel performance">
+    <div class="panel-heading">
+      <div>
+        <h2>Order performance</h2>
+        <p>Buy and sell activity · illustrative figures</p>
+      </div>
+      <div class="legend">
+        <span><b class="sell-dot"></b>Sell</span><span><b class="buy-dot"></b>Buy</span>
+      </div>
+    </div>
+    <div class="chart">
+      <div class="axis-labels">
+        <span>60</span><span>45</span><span>30</span><span>15</span><span>0</span>
+      </div>
+      <div class="plot">
+        <svg
+          viewBox="0 0 600 180"
+          preserveAspectRatio="none"
+          role="img"
+          [attr.aria-label]="'Sample buy and sell order trends over ' + period() + ' days'"
+        >
+          <defs>
+            <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#48b7b2" stop-opacity=".22" />
+              <stop offset="100%" stop-color="#48b7b2" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <g stroke="#eaf0f5" stroke-width="1">
+            <path d="M0 5H600 M0 47H600 M0 89H600 M0 131H600 M0 174H600" />
+          </g>
+          <path
+            [attr.d]="
+              period() === '7'
+                ? 'M0 140 C40 140 65 75 100 85 S165 128 200 100 S270 35 300 55 S365 110 400 68 S465 88 500 42 S565 25 600 12 L600 180H0Z'
+                : 'M0 150 C60 150 70 105 120 115 S200 50 240 70 S300 130 360 60 S450 95 480 40 S550 55 600 8 L600 180H0Z'
+            "
+            fill="url(#area)"
+          />
+          <path
+            [attr.d]="
+              period() === '7'
+                ? 'M0 140 C40 140 65 75 100 85 S165 128 200 100 S270 35 300 55 S365 110 400 68 S465 88 500 42 S565 25 600 12'
+                : 'M0 150 C60 150 70 105 120 115 S200 50 240 70 S300 130 360 60 S450 95 480 40 S550 55 600 8'
+            "
+            fill="none"
+            stroke="#279f9d"
+            stroke-width="3"
+          />
+          <path
+            [attr.d]="
+              period() === '7'
+                ? 'M0 160 C40 140 65 155 100 130 S160 150 200 130 S260 80 300 105 S365 140 400 112 S460 70 500 82 S560 65 600 50'
+                : 'M0 165 C60 140 90 170 120 135 S200 130 240 120 S310 155 360 100 S440 60 480 85 S560 75 600 45'
+            "
+            fill="none"
+            stroke="#526b92"
+            stroke-width="2.5"
+            stroke-dasharray="6 5"
+          />
+        </svg>
+        <div class="chart-dates">
+          @for (
+            label of period() === '7'
+              ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+              : ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'];
+            track label
+          ) {
+            <span>{{ label }}</span>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="chart-note">
+      <span class="trend">↗ Steady momentum</span><span>Explore your order pipeline below</span>
+    </div>
+  </section>
+  <section class="panel pipeline">
+    <div class="panel-heading">
+      <div>
+        <h2>Order pipeline</h2>
+        <p>Sample status breakdown</p>
+      </div>
+      <i class="bi bi-box-seam" aria-hidden="true"></i>
+    </div>
+    <div class="pipeline-total">
+      <strong>{{ period() === '7' ? '80' : '310' }}</strong
+      ><span>total orders</span>
+    </div>
+    <div class="segmented" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <ul class="pipeline-list">
+      <li>
+        <span><b class="dot awaiting"></b>Awaiting device</span
+        ><strong>{{ period() === '7' ? '18' : '70' }}</strong>
+      </li>
+      <li>
+        <span><b class="dot processing"></b>Processing</span
+        ><strong>{{ period() === '7' ? '12' : '47' }}</strong>
+      </li>
+      <li>
+        <span><b class="dot dispatched"></b>Dispatched</span
+        ><strong>{{ period() === '7' ? '22' : '85' }}</strong>
+      </li>
+      <li>
+        <span><b class="dot completed"></b>Completed</span
+        ><strong>{{ period() === '7' ? '28' : '108' }}</strong>
+      </li>
+    </ul>
+    <a routerLink="/orders/sell" class="text-link">Manage orders <span>→</span></a>
+  </section>
+</div>
+<section class="panel orders">
+  <div class="panel-heading">
+    <div>
+      <h2>Recent orders</h2>
+      <p>A preview of your latest buy and sell activity</p>
+    </div>
+    <a routerLink="/orders/sell" class="text-link">View orders →</a>
+  </div>
+  <div class="orders-toolbar">
+    <div class="order-tabs" role="group" aria-label="Filter sample orders">
+      @for (tab of filters; track tab) {
+        <button
+          [class.active]="filter() === tab"
+          [attr.aria-pressed]="filter() === tab"
+          (click)="filter.set(tab)"
+        >
+          {{ tab }}
+        </button>
+      }
+    </div>
+    <label class="order-search"
+      ><span class="visually-hidden">Search sample orders</span
+      ><input
+        type="search"
+        #orderSearch
+        placeholder="Find an order or customer…"
+        [value]="search()"
+        (input)="search.set(orderSearch.value)"
+    /></label>
+  </div>
+  <div class="table-scroll">
+    <table>
+      <caption class="visually-hidden">
+        Illustrative orders. All names and amounts are sample data.
+      </caption>
+      <thead>
+        <tr>
+          <th>Order / customer</th>
+          <th>Device</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th><span class="visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of visibleOrders(); track order.id) {
+          <tr>
+            <td>
+              <div class="customer">
+                <span class="initials">{{ order.initials }}</span>
+                <div>
+                  <strong>{{ order.id }}</strong
+                  ><small>{{ order.customer }}</small>
+                </div>
+              </div>
+            </td>
+            <td>
+              <strong>{{ order.device }}</strong
+              ><small>{{ order.detail }}</small>
+            </td>
+            <td>
+              <span class="type-badge" [class.buy]="order.type === 'Buy'">{{ order.type }}</span>
+            </td>
+            <td class="amount">{{ currency.format(order.amount) }}</td>
+            <td>
+              <span
+                class="status"
+                [class.completed]="order.status === 'Completed'"
+                [class.dispatched]="order.status === 'Dispatched'"
+                [class.processing]="order.status === 'Processing'"
+                >{{ order.status }}</span
+              >
+            </td>
+            <td>
+              <a
+                [routerLink]="order.type === 'Sell' ? '/orders/sell' : '/orders/buy'"
+                [attr.aria-label]="'View ' + order.type.toLowerCase() + ' orders'"
+                >↗</a
+              >
+            </td>
+          </tr>
+        }
+        @if (visibleOrders().length === 0) {
+          <tr>
+            <td colspan="6" class="empty-orders">
+              No orders match your search.
+              <button (click)="search.set(''); filter.set('All orders')">Clear filters</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span>Showing {{ visibleOrders().length }} sample orders</span
+    ><span>Live orders will appear after API integration</span>
+  </div>
+</section>
+<section class="quick-section">
+  <h2>Quick actions</h2>
+  <div class="quick-grid">
+    @for (link of quickLinks; track link.path) {
+      <a [routerLink]="link.path"
+        ><span class="quick-icon"><i [class]="'bi bi-' + link.icon" aria-hidden="true"></i></span>
+        <div>
+          <strong>{{ link.label }}</strong
+          ><small>{{ link.description }}</small>
+        </div>
+        <span class="quick-arrow">↗</span></a
+      >
+    }
+  </div>
+</section>

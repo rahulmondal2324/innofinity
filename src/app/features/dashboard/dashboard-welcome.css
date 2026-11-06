@@ -1,0 +1,244 @@
+:host {
+  display: block;
+  margin-bottom: 26px;
+}
+.welcome-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.3fr) minmax(240px, 1fr);
+  gap: 22px;
+}
+.welcome-card {
+  position: relative;
+  background: radial-gradient(ellipse at 95% 100%, #2c666b, transparent 60%), #151b32;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 300px;
+  padding: 34px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+.hero-kicker {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #a6dad6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-kicker > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a5e7c9;
+}
+.hero-copy h2 {
+  font-size: 34px;
+  font-weight: 550;
+  letter-spacing: -1.3px;
+  line-height: 1.15;
+  margin: 22px 0 15px;
+}
+.hero-copy h2 > span {
+  color: #9be1cb;
+}
+.hero-copy p {
+  font-size: 12px;
+  color: #b3c2cf;
+  line-height: 1.8;
+  margin: 0 0 22px;
+}
+.hero-copy > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  text-decoration: none;
+  background: #c0eddc;
+  color: #203e3e;
+  padding: 11px 15px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+.orbit-art {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 42%;
+  height: 100%;
+}
+.orbit {
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border: 1px solid #98dbd224;
+  border-radius: 50%;
+  top: 35px;
+  left: 0;
+}
+.orbit-two {
+  width: 340px;
+  height: 340px;
+  top: 0;
+  left: -35px;
+}
+.device {
+  position: absolute;
+  left: 70px;
+  top: 42px;
+  width: 103px;
+  height: 205px;
+  border: 4px solid #839d9f;
+  border-radius: 23px;
+  background: #111329;
+  transform: rotate(16deg);
+  box-shadow: 16px 20px 35px #0005;
+  display: grid;
+  place-items: center;
+}
+.device-camera {
+  position: absolute;
+  top: 7px;
+  width: 37px;
+  height: 9px;
+  background: #02050a;
+  border-radius: 20px;
+}
+.device img {
+  object-fit: contain;
+}
+.float-label {
+  position: absolute;
+  bottom: 34px;
+  left: 13px;
+  background: #ffffffed;
+  box-shadow: 0 8px 20px #0002;
+  color: #355860;
+  border-radius: 9px;
+  padding: 12px;
+  font-size: 10px;
+  transform: rotate(-6deg);
+}
+.float-label > span {
+  color: #268879;
+  margin-right: 8px;
+}
+.spark {
+  position: absolute;
+  color: #c3ecdd;
+}
+.spark-one {
+  top: 36px;
+  right: 20px;
+  font-size: 28px;
+}
+.spark-two {
+  bottom: 62px;
+  left: 10px;
+  font-size: 18px;
+}
+.focus-card {
+  background: #eae6dc;
+  border: 1px solid #e0dcd1;
+  border-radius: 20px;
+  padding: 27px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.focus-kicker {
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  color: #756c58;
+  font-weight: 650;
+}
+.focus-icon {
+  position: absolute;
+  right: 24px;
+  top: 23px;
+  color: #796e57;
+  font-size: 22px;
+}
+.focus-card h2 {
+  font-size: 23px;
+  line-height: 1.25;
+  font-weight: 550;
+  letter-spacing: -0.6px;
+  margin: 38px 0 12px;
+  color: #444032;
+}
+.focus-card p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #777161;
+  max-width: 220px;
+  margin-bottom: 20px;
+}
+.focus-card a {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  color: #4f493c;
+  border-top: 1px solid #cfc9bc;
+  padding-top: 15px;
+  font-size: 11px;
+  text-decoration: none;
+  font-weight: 600;
+}
+@media (max-width: 1200px) {
+  .orbit-art {
+    opacity: 0.7;
+    right: -35px;
+  }
+  .hero-copy h2 {
+    font-size: 30px;
+  }
+  .welcome-card {
+    padding: 28px;
+  }
+  .focus-card {
+    padding: 24px;
+  }
+  .hero-copy {
+    max-width: 70%;
+  }
+}
+@media (max-width: 1050px) {
+  .welcome-grid {
+    grid-template-columns: 1fr;
+  }
+  .orbit-art {
+    right: 0;
+    opacity: 1;
+  }
+  .focus-card {
+    display: none;
+  }
+  .hero-copy {
+    max-width: none;
+  }
+}
+@media (max-width: 500px) {
+  .welcome-card {
+    padding: 26px;
+    min-height: 285px;
+  }
+  .hero-copy h2 {
+    font-size: 29px;
+  }
+  .orbit-art {
+    opacity: 0.16;
+    right: -45px;
+    width: 55%;
+    pointer-events: none;
+  }
+  .hero-copy p {
+    font-size: 11px;
+  }
+}

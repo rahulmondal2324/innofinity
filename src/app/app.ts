@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { ToastContainer } from "./shared/ui/toast-container/toast-container";
 
 @Component({
-  imports: [RouterOutlet],
-  selector: 'iw-admin-root',
-  styleUrl: './app.css',
-  templateUrl: './app.html',
+  imports: [RouterOutlet, ToastContainer],
+  selector: "iw-admin-root",
+  templateUrl: "./app.html",
+  styleUrl: "./app.css",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  protected readonly title = signal('innofinity-admin');
-}
+export class App {}

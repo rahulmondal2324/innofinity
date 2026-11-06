@@ -1,0 +1,125 @@
+/* Bootstrap Icons v1.13.2 - MIT licence. See public/fonts/LICENSE. */
+@font-face {
+  font-display: swap;
+  font-family: bootstrap-icons;
+  src: url('/fonts/bootstrap-icons.woff2') format('woff2');
+}
+.bi::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -0.125em;
+  -webkit-font-smoothing: antialiased;
+}
+.bi-arrow-left-right::before {
+  content: '\f12b';
+}
+.bi-arrow-right::before {
+  content: '\f138';
+}
+.bi-arrow-up-right::before {
+  content: '\f144';
+}
+.bi-bag::before {
+  content: '\f179';
+}
+.bi-box-arrow-right::before {
+  content: '\f1c3';
+}
+.bi-box-seam::before {
+  content: '\f1c7';
+}
+.bi-chat-left-quote::before {
+  content: '\f250';
+}
+.bi-check-circle::before {
+  content: '\f26b';
+}
+.bi-check2-circle::before {
+  content: '\f270';
+}
+.bi-chevron-left::before {
+  content: '\f284';
+}
+.bi-chevron-right::before {
+  content: '\f285';
+}
+.bi-envelope::before {
+  content: '\f32f';
+}
+.bi-exclamation-circle::before {
+  content: '\f333';
+}
+.bi-eye::before {
+  content: '\f341';
+}
+.bi-eye-slash::before {
+  content: '\f340';
+}
+.bi-file-earmark-text::before {
+  content: '\f38b';
+}
+.bi-gear::before {
+  content: '\f3e5';
+}
+.bi-globe2::before {
+  content: '\f3ef';
+}
+.bi-grid::before {
+  content: '\f3fc';
+}
+.bi-grid-1x2::before {
+  content: '\f3f4';
+}
+.bi-image::before {
+  content: '\f42a';
+}
+.bi-info-circle::before {
+  content: '\f431';
+}
+.bi-laptop::before {
+  content: '\f456';
+}
+.bi-layers::before {
+  content: '\f45b';
+}
+.bi-list-ul::before {
+  content: '\f478';
+}
+.bi-lock::before {
+  content: '\f47b';
+}
+.bi-people::before {
+  content: '\f4d0';
+}
+.bi-phone::before {
+  content: '\f4e7';
+}
+.bi-plus-lg::before {
+  content: '\f64d';
+}
+.bi-question-circle::before {
+  content: '\f505';
+}
+.bi-shield-check::before {
+  content: '\f52f';
+}
+.bi-shield-lock::before {
+  content: '\f538';
+}
+.bi-sliders::before {
+  content: '\f56b';
+}
+.bi-star::before {
+  content: '\f588';
+}
+.bi-wifi::before {
+  content: '\f61c';
+}
+.bi-x-lg::before {
+  content: '\f659';
+}

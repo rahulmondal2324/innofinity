@@ -1,0 +1,80 @@
+.toast-stack {
+  position: fixed;
+  right: 24px;
+  top: 24px;
+  z-index: 1100;
+  width: min(410px, calc(100vw - 32px));
+  display: grid;
+  gap: 12px;
+  pointer-events: none;
+}
+.notice {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: 24px 1fr 28px;
+  gap: 12px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-left: 4px solid #168ba8;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px #14243720;
+  color: #20334a;
+  animation: arrive 0.2s ease-out;
+}
+.notice > i {
+  font-size: 21px;
+  color: #127e99;
+}
+.notice-error {
+  border-left-color: #c43a4f;
+}
+.notice-error > i {
+  color: #c43a4f;
+}
+.notice-success {
+  border-left-color: #168562;
+}
+.notice-success > i {
+  color: #168562;
+}
+.notice strong {
+  font-size: 14px;
+}
+.notice p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 4px 0 0;
+}
+.notice button {
+  border: 0;
+  background: none;
+  color: #64758b;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+}
+.notice button:hover {
+  background: #edf2f6;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notice {
+    animation: none;
+  }
+}
+@media (max-width: 575px) {
+  .toast-stack {
+    right: 16px;
+    top: 16px;
+  }
+}

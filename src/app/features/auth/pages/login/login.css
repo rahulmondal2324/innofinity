@@ -1,0 +1,250 @@
+:host {
+  display: block;
+}
+.login-page {
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  min-height: 100dvh;
+}
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fcfdfd;
+  padding: 43px 8% 28px;
+}
+.form-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.portal-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #31526c;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.portal-label i {
+  font-size: 14px;
+}
+.access-label {
+  font-size: 10px;
+  color: #7e8a99;
+}
+.form-wrap {
+  width: 100%;
+  max-width: 390px;
+  margin: 72px auto;
+}
+.welcome-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #2a8190;
+}
+h2 {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -1.1px;
+  color: #162439;
+  line-height: 1.23;
+  margin: 13px 0;
+}
+.form-intro {
+  font-size: 13px;
+  color: #6f7c8c;
+  margin-bottom: 34px;
+}
+.field-group {
+  margin-bottom: 22px;
+}
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #26384b;
+  margin-bottom: 10px;
+}
+.input-wrap {
+  position: relative;
+}
+.input-wrap > i {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  font-size: 16px;
+  color: #8b99aa;
+}
+.form-control {
+  height: 52px;
+  border: 1px solid #dce3eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 15px 12px 44px;
+  font-size: 13px;
+  color: #1c3046;
+}
+.form-control::placeholder {
+  color: #97a2b1;
+}
+.form-control:focus {
+  border-color: #2b9da8;
+  box-shadow: 0 0 0 3px #2b9da815;
+}
+.form-control[aria-invalid="true"] {
+  border-color: #bf4056;
+}
+.password-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.text-button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #247580;
+  font-size: 12px;
+  font-weight: 600;
+}
+.text-button:hover {
+  text-decoration: underline;
+}
+.password-input {
+  padding-right: 47px;
+}
+.visibility-button {
+  border: 0;
+  background: transparent;
+  color: #8a97a8;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 42px;
+  width: 39px;
+  border-radius: 6px;
+}
+.visibility-button:hover {
+  color: #263e53;
+  background: #f2f6f8;
+}
+.sign-in-button {
+  height: 52px;
+  border: 0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-size: 13px;
+  font-weight: 650;
+  color: #fff;
+  background: #172d42;
+  box-shadow: 0 5px 14px #172d4215;
+  margin-top: 30px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.sign-in-button:hover,
+.sign-in-button:focus-visible {
+  background: #245164;
+  color: #fff;
+}
+.sign-in-button:active {
+  transform: translateY(1px);
+}
+.sign-in-button:disabled {
+  background: #60778a;
+  color: #fff;
+}
+.field-error {
+  font-size: 12px;
+  color: #b42c48;
+  margin: 7px 0 0;
+}
+.caps-hint {
+  font-size: 12px;
+  color: #856515;
+  margin: 7px 0 0;
+}
+.access-note {
+  display: flex;
+  gap: 12px;
+  padding: 21px 0;
+  margin-top: 15px;
+  border-bottom: 1px solid #e9edf1;
+}
+.access-note > i {
+  color: #74999d;
+  font-size: 18px;
+}
+.access-note p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #7a8798;
+  margin: 0;
+}
+.help-line {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 24px;
+  font-size: 11px;
+  color: #8b95a2;
+}
+.help-line button {
+  font-size: 11px;
+}
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 9px;
+  color: #8b96a5;
+}
+.mobile-brand {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .form-panel {
+    padding: 36px 7% 25px;
+  }
+  .access-label {
+    display: none;
+  }
+  .form-footer {
+    font-size: 8px;
+  }
+}
+@media (max-width: 767px) {
+  .login-page {
+    display: block;
+  }
+  .form-panel {
+    min-height: 100dvh;
+    padding: 28px 7% 22px;
+  }
+  .form-wrap {
+    margin: 45px auto;
+  }
+  .mobile-brand {
+    display: block;
+    margin-bottom: 38px;
+  }
+  .form-footer {
+    font-size: 9px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sign-in-button {
+    transition: none;
+  }
+}
